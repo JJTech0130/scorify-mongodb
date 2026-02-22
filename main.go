@@ -17,6 +17,7 @@ type Schema struct {
 	Port       int    `key:"port" default:"27017"`
 	Username   string `key:"username"`
 	Password   string `key:"password"`
+	AuthSource string `key:"auth_source" default:"admin"`
 	Database   string `key:"database"`
 	Collection string `key:"collection"`
 	Query      string `key:"query"`
@@ -69,12 +70,13 @@ func Run(ctx context.Context, config string) error {
 	timeout := time.Duration(math.Floor(time.Until(deadline).Seconds())) * time.Second
 
 	uri := fmt.Sprintf(
-		"mongodb://%s:%s@%s:%d/%s",
+		"mongodb://%s:%s@%s:%d/%s?authSource=%s",
 		conf.Username,
 		conf.Password,
 		conf.Server,
 		conf.Port,
 		conf.Database,
+		conf.AuthSource,
 	)
 
 	clientOptions := options.Client().
