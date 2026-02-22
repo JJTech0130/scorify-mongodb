@@ -1,4 +1,4 @@
-module github.com/scorify/mongodb
+module github.com/jjtech0130/scorify-mongodb
 
 go 1.22.6
 
